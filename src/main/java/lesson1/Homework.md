@@ -12,18 +12,14 @@
 -. Удаление элемента массива с неизвестным индексом со сдвигом - O(n)
 .
 ###3. Определить сложность следующих алгоритмов. Сколько произойдет итераций?
-a)  Итоговая сложность O (n(logn)^2)
-- Внешний цикл: O(n), n итераций т.е. 10000.
-- Внутренний цикл: O(logn)
-  - j всегда является степенью двойки.  
-    Начинаем с j = 1 (2^0) заканчиваем j = 8192 (2^13).  
-    Итого имеем 14 итераций внутреннего цикла + 1 внешнего.
-    10000 * 15 = 150000 итераций.
+a) O(nlogn) Кол-во итераций при (n = 10000) равно 10000 * 14 = 140000
+- Внешний цикл: O(n) = 10000
+- Внутренний цикл: O(logn) = [2^0,2^1....2^13] = 14
 ```
         int n = 10000;
         List<Integer> arrayList = new ArrayList<>();
         for (int i = 0; i < n; i++) { // O(n)
-            for (int j = 1; j < n; j *= 2) { // O(logn)^2
+            for (int j = 1; j < n; j *= 2) { // O(logn)
                 arrayList.add(i * j);
             }
         }
@@ -33,27 +29,27 @@ b) O(n^2) 25млн
 ```
         int n = 10000;
         List<Integer> arrayList = new ArrayList<>();
-        for (int i = 0; i < n; i += 2) {
-            for (int j = i; j < n; j++) {
+        for (int i = 0; i < n; i += 2) { // O(n)
+            for (int j = i; j < n; j++) { // O(n)
                 arrayList.add(i * j);
             }
         }
 ```
 
-с) O(nlogn), 10001
+с) O(n), 9991
 
 ```
         int n = 10000;
         List<Integer> arrayList = new ArrayList<>();
-        for (int i = 0; i < n; i ++) { //O(logn)
-            for (int j = 0; j < n; j++) {//O(n/2) > O(n)
+        for (int i = 0; i < n; i ++) { // O(n)
+            for (int j = 0; j < n; j++) { // O(n/2) > O(n)
                 arrayList.add(i * j);
 				n--;
             }
         }
 ```
 
-d) O(n), 10000
+d) O(n), кол-во итераций равно n
 ```
 		
 		factorial(BigInteger.valueOf(10000))
@@ -66,7 +62,7 @@ d) O(n), 10000
     }
 ```
 
-e) O(2^n) 
+e) O(2^n)
 ```
 	
 	fib(BigInteger.valueOf(50));
