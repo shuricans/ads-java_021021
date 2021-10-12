@@ -5,6 +5,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -15,52 +16,35 @@ class SolutionTest {
     @ParameterizedTest
     @MethodSource("dataProvider")
     @DisplayName("searchMissedValue")
-    void searchMissedValue(int[] array, int expectedValue) {
-        assertEquals(expectedValue, Solution.searchMissedValue(array));
+    void searchMissedValue(int missedValue, int[] a) {
+        assertEquals(missedValue, Solution.searchMissedValue(a));
     }
 
     public static Stream<Arguments> dataProvider() {
-        return Stream.of(
-                Arguments.of(
-                        new int[]{},
-                        1
-                ),
-                Arguments.of(
-                        new int[]{2},
-                        1
-                ),
-                Arguments.of(
-                        new int[]{2, 3},
-                        1
-                ),
-                Arguments.of(
-                        new int[]{1, 3},
-                        2
-                ),
-                Arguments.of(
-                        new int[]{1, 2, 3, 5},
-                        4
-                ),
-                Arguments.of(
-                        getArray(10_000, 123),
-                        123
-                ),
-                Arguments.of(
-                        getArray(1_000_000, 89796),
-                        89796
-                )
-        );
-    }
+        final int maxSize = 1_000_000;
+        final int pairsCount = 10;
 
-    private static int[] getArray(int length, int missedValue) {
-        final int[] a = new int[length];
-        for (int i = 0; i < a.length; i++) {
-            if (i + 1 < missedValue) {
-                a[i] = i + 1;
-            } else {
-                a[i] = i + 2;
+        Arguments[] arguments = new Arguments[pairsCount + 5];
+        arguments[0] = Arguments.of(1, new int[]{});
+        arguments[1] = Arguments.of(1, new int[]{2});
+        arguments[2] = Arguments.of(1, new int[]{2, 3});
+        arguments[3] = Arguments.of(2, new int[]{1, 3});
+        arguments[4] = Arguments.of(4, new int[]{1, 2, 3, 5});
+
+        for (int i = 5; i < arguments.length; i++) {
+            int randomSize = ThreadLocalRandom.current().nextInt(maxSize) + 1;
+            int randomMissedValue = ThreadLocalRandom.current().nextInt(randomSize);
+            int[] a = new int[randomSize];
+            for (int j = 0; j < a.length; j++) {
+                if (j + 1 < randomMissedValue) {
+                    a[j] = j + 1;
+                } else {
+                    a[j] = j + 2;
+                }
             }
+            arguments[i] = Arguments.of(randomMissedValue, a);
         }
-        return a;
+
+        return Stream.of(arguments);
     }
 }
