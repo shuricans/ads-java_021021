@@ -1,5 +1,7 @@
 package lesson3;
 
+import lesson3.deque.Deque;
+import lesson3.deque.DequeImpl;
 import lesson3.queue.PriorityQueueImpl;
 import lesson3.queue.Queue;
 import lesson3.queue.QueueImpl;
@@ -11,7 +13,32 @@ public class Test3 {
 
     public static void main(String[] args) {
 //        testStack();
-        testQueue();
+//        testQueue();
+        testDeque();
+    }
+
+    private static void testDeque() {
+        Deque<Integer> deque = new DequeImpl<>(3);
+        deque.insertRight(1);
+        System.out.println(deque);
+        deque.insertRight(2);
+        System.out.println(deque);
+        deque.insertRight(3);
+        System.out.println(deque);
+        System.out.println("deque.removeLeft() = " + deque.removeLeft());
+        System.out.println(deque);
+        System.out.println("deque.removeRight() = " + deque.removeRight());
+        System.out.println(deque);
+
+        deque.insertRight(10);
+        deque.insertLeft(9);
+        System.out.println(deque);
+        deque.removeLeft();
+        deque.removeLeft();
+        deque.removeLeft();
+        System.out.println(deque);
+        System.out.println("deque.peekFront() = " + deque.peekFront());
+
     }
 
     private static void testStack() {
