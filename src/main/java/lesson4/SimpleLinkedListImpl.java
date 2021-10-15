@@ -144,6 +144,9 @@ public class SimpleLinkedListImpl<E> implements LinkedList<E>, Iterable<E> {
 
         @Override
         public void remove() {
+            if (lastReturned == null)
+                throw new IllegalStateException();
+
             // if first
             if (lastReturned == first) {
                 first = next;
