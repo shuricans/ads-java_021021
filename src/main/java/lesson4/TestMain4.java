@@ -8,7 +8,7 @@ public class TestMain4 {
 
     private static void testLinkedList() {
 //        LinkedList<Integer> linkedList = new SimpleLinkedListImpl<>();
-        var linkedList = new TwoSideLinkedListImpl<>();
+        var linkedList = new TwoSideLinkedListImpl<Integer>();
         linkedList.insertFirst(1);
         linkedList.insertFirst(2);
         linkedList.insertFirst(3);
@@ -37,9 +37,9 @@ public class TestMain4 {
 
         //ДОЛЖНО РАБОТАТЬ! Iterable - LinkedListIterator impl Iterator
 
-/*        for (Integer value : linkedList) {
+        for (Integer value : linkedList) {
             System.out.println("value: " + value);
-        }*/
+        }
     }
 
 }
