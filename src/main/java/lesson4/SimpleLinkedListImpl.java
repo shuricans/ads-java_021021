@@ -115,6 +115,7 @@ public class SimpleLinkedListImpl<E> implements LinkedList<E>, Iterable<E> {
 
     private class LinkedListIterator implements Iterator<E> {
 
+        private Node<E> prev;
         private Node<E> lastReturned;
         private Node<E> next;
         private int nextIndex;
@@ -134,6 +135,7 @@ public class SimpleLinkedListImpl<E> implements LinkedList<E>, Iterable<E> {
             if (!hasNext())
                 throw new NoSuchElementException();
 
+            prev = lastReturned;
             lastReturned = next;
             next = next.next;
             nextIndex++;
@@ -142,7 +144,17 @@ public class SimpleLinkedListImpl<E> implements LinkedList<E>, Iterable<E> {
 
         @Override
         public void remove() {
-            Iterator.super.remove();
+            // if first
+            if (lastReturned == first) {
+                first = next;
+                lastReturned.next = null;
+            } else if (next == null) { // if last
+                prev.next = null;
+            } else {
+                prev.next = next;
+                lastReturned.next = null;
+            }
+            size--;
         }
 
 
