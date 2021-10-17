@@ -1,6 +1,7 @@
 package lesson4;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public class SimpleLinkedListImpl<E> implements LinkedList<E>, Iterable<E> {
 
@@ -109,24 +110,54 @@ public class SimpleLinkedListImpl<E> implements LinkedList<E>, Iterable<E> {
 
     @Override
     public Iterator<E> iterator() {
-        return new LinkedListIterator();
+        return new LinkedListIterator(0);
     }
 
     private class LinkedListIterator implements Iterator<E> {
 
+        private Node<E> prev;
+        private Node<E> lastReturned;
+        private Node<E> next;
+        private int nextIndex;
+
+        public LinkedListIterator(int index) {
+            this.next = (index == size) ? null : first;
+            this.nextIndex = index;
+        }
+
         @Override
         public boolean hasNext() {
-            return false;
+            return nextIndex < size;
         }
 
         @Override
         public E next() {
-            return null;
+            if (!hasNext())
+                throw new NoSuchElementException();
+
+            prev = lastReturned;
+            lastReturned = next;
+            next = next.next;
+            nextIndex++;
+            return lastReturned.item;
         }
 
         @Override
         public void remove() {
-            Iterator.super.remove();
+            if (lastReturned == null)
+                throw new IllegalStateException();
+
+            // if first
+            if (lastReturned == first) {
+                first = next;
+                lastReturned.next = null;
+            } else if (next == null) { // if last
+                prev.next = null;
+            } else {
+                prev.next = next;
+                lastReturned.next = null;
+            }
+            size--;
         }
 
 
