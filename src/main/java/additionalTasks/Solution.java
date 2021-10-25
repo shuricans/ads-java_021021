@@ -103,9 +103,9 @@ public class Solution {
 
         String format = "%" + shift + "d ";
 
-        for (int j = 0; j < result.length; j++) {
-            for (int k = 0; k < result[0].length; k++) {
-                System.out.printf(format, result[j][k]);
+        for (int i = 0; i < result.length; i++) {
+            for (int j = 0; j < result[0].length; j++) {
+                System.out.printf(format, result[i][j]);
             }
             System.out.println();
         }
