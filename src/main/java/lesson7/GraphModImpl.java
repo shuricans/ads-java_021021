@@ -1,6 +1,5 @@
 package lesson7;
 
-import java.sql.SQLOutput;
 import java.util.*;
 
 public class GraphModImpl implements GraphMod {
@@ -159,7 +158,7 @@ public class GraphModImpl implements GraphMod {
                 int value = adjMatrix[indexOf(stack.peek().getLabel())][indexOf(vertex.getLabel())];
                 current += value;
                 currentTrek.append(" > ").append(value).append(" > ").append(vertex.getLabel());
-                if(vertex.getLabel().equals(secondLabel)) {
+                if (vertex.getLabel().equals(secondLabel)) {
                     if (min == 0 || current < min) {
                         min = current;
                         resultTrek = currentTrek.toString();
