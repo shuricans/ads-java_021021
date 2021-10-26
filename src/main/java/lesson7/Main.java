@@ -37,9 +37,7 @@ public class Main {
         graph.addEdge("Саратов", "Воронеж", 510);
         graph.addEdge("Курск", "Воронеж", 230);
 
-        graph.display();
-
-
+        graph.shortestWayBetween("Москва", "Воронеж");
     }
 
     private static void testGraph() {
