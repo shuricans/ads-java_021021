@@ -3,8 +3,43 @@ package lesson7;
 public class Main {
     public static void main(String[] args) {
 //        testGraph();
-        testDfs();
-        testBfs();
+//        testDfs();
+//        testBfs();
+        findPath();
+    }
+
+    private static void findPath() {
+        GraphMod graph = new GraphModImpl(10);
+        graph.addVertex("Москва");
+        graph.addVertex("Тула");
+        graph.addVertex("Рязань");
+        graph.addVertex("Калуга");
+        graph.addVertex("Липецк");
+        graph.addVertex("Тамбов");
+        graph.addVertex("Орел");
+        graph.addVertex("Саратов");
+        graph.addVertex("Курск");
+        graph.addVertex("Воронеж");
+
+        graph.addEdge("Москва", "Тула", 180);
+        graph.addEdge("Москва", "Рязань", 210);
+        graph.addEdge("Москва", "Калуга", 200);
+
+        graph.addEdge("Тула", "Липецк", 300);
+        graph.addEdge("Рязань", "Тамбов", 290);
+        graph.addEdge("Калуга", "Орел", 210);
+
+        graph.addEdge("Липецк", "Воронеж", 130);
+
+        graph.addEdge("Тамбов", "Саратов", 470);
+        graph.addEdge("Орел", "Курск", 160);
+
+        graph.addEdge("Саратов", "Воронеж", 510);
+        graph.addEdge("Курск", "Воронеж", 230);
+
+        graph.display();
+
+
     }
 
     private static void testGraph() {
